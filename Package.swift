@@ -24,7 +24,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/checkout/checkout-3ds-sdk-ios", .exact("3.2.5"))
+        // Fork of official checkout-3ds 3.2.5 that additionally exposes the
+        // Checkout3DS binary as a product, so RyftUI links it into the final app.
+        .package(url: "https://github.com/withniyaz/checkout-3ds-sdk-ios", .branch("expose-3.2.5"))
     ],
     targets: [
         .target(
@@ -48,7 +50,8 @@ let package = Package(
             dependencies: [
                 "RyftCore",
                 "RyftCard",
-                .product(name: "Checkout3DSPackages", package: "checkout-3ds-sdk-ios")
+                .product(name: "Checkout3DSPackages", package: "checkout-3ds-sdk-ios"),
+                .product(name: "Checkout3DS", package: "checkout-3ds-sdk-ios")
             ],
             path: "RyftUI/Source",
             exclude: ["Tests", "Info.plist"],
