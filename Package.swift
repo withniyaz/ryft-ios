@@ -24,7 +24,10 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/checkout/checkout-3ds-sdk-ios", .exact("3.3.2"))
+        // Fork of checkout-3ds 3.3.2 that additionally exposes the Checkout3DS binary
+        // as a product, so RyftUI can depend on the module directly (required for
+        // module visibility through nested SPM graphs e.g. a Flutter plugin).
+        .package(url: "https://github.com/withniyaz/checkout-3ds-sdk-ios", .branch("expose-checkout3ds"))
     ],
     targets: [
         .target(
@@ -48,7 +51,10 @@ let package = Package(
             dependencies: [
                 "RyftCore",
                 "RyftCard",
-                .product(name: "Checkout3DSPackages", package: "checkout-3ds-sdk-ios")
+                // Checkout3DSPackages provides the full link closure (JOSESwift,
+                // CheckoutEventLogger); Checkout3DS provides the importable module.
+                .product(name: "Checkout3DSPackages", package: "checkout-3ds-sdk-ios"),
+                .product(name: "Checkout3DS", package: "checkout-3ds-sdk-ios")
             ],
             path: "RyftUI/Source",
             exclude: ["Tests", "Info.plist"],
