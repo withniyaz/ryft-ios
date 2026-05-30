@@ -1,3 +1,4 @@
+import Foundation
 import RyftCore
 import Checkout3DS
 

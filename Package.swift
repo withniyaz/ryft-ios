@@ -7,7 +7,7 @@ let package = Package(
     name: "Ryft",
     defaultLocalization: "en-gb",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v13)
     ],
     products: [
         .library(
@@ -24,7 +24,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/checkout/checkout-3ds-sdk-ios", from: "3.2.5")
+        .package(url: "https://github.com/checkout/checkout-3ds-sdk-ios", .exact("3.3.2"))
     ],
     targets: [
         .target(
